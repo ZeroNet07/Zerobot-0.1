@@ -2,16 +2,16 @@ import discord
 from discord.ext import commands
 import random
 
-BOT_TOKEN = 'BOT TOKEN'
-CHANNEL_ID = 'CHANNEL ID'
+BOT_TOKEN = '!!BOT TOKEN!!'
+CHANNEL_ID = !!CHANNEL ID!!
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 @bot.event
 async def on_ready():
-    print("Hello! Study bot is ready!")
+    print(f'We have logged in as {bot.user}')
     channel = bot.get_channel(CHANNEL_ID)
-    #await channel.send("Hello! bot is ready!")
+    #await channel.send("Hello! bot is ready! \U000270A")
 
 @bot.command()
 async def add(ctx, *arr):
@@ -21,8 +21,8 @@ async def add(ctx, *arr):
     await ctx.send(f"Hasil = {hasil}")
 
 @bot.command()
-async def game(ctx):  # Adding a command decorator for the game function
-    await ctx.send("Pilih Gunting / Batu / Kertas")
+async def game(ctx):  #game function
+    await ctx.send("Pilih Gunting ✌️ / Batu ✊ / Kertas 🖐️")
 
     def check(message):
         return message.author == ctx.author and message.channel == ctx.channel and message.content.lower() in ["gunting", "batu", "kertas"]
@@ -46,5 +46,26 @@ async def game(ctx):  # Adding a command decorator for the game function
 @bot.command()
 async def hello(ctx):
     await ctx.send(f'Hello {ctx.author.mention}!')
+    
+@bot.command()
+async def smile(ctx):
+    emodji = ["\U0001f600", "\U0001f642", "\U0001F606", "\U0001F923"]
+    await ctx.send (random.choice(emodji))
 
+@bot.command()
+async def coin(ctx):
+    flip = random.randint(0, 2)
+    if flip == 0:
+        await ctx.send ("HEADS")
+    else:
+        await ctx.send ("TAILS")
+
+@bot.command()
+async def mention_friends(ctx):
+    friend_ids = [757436080026026107]  #user IDs
+
+    mentions = ' '.join([f"<@{friend_id}>" for friend_id in friend_ids])
+
+    await ctx.send(f"Hey {mentions}, let's hang out!")
+    
 bot.run(BOT_TOKEN)
